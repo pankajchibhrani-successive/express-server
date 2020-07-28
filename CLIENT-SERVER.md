@@ -1,0 +1,2 @@
+Request is served using Node JS as the runtime environment which uses the event loop to handle multiple request asynchronously.
+If the request is of blocking nature, then event loop assigns it to the thread pool by registering a callback .Once the thread pool finishes its task, then it gets pushed to the event queue of the event loop and as soon as the stack becomes empty, then event queue pushed the task to the stack and the result gets printed.If event looop receives the request of non blocking nature then it returns the request directly to the client.
