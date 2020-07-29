@@ -1,0 +1,28 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "local" : "node ./extra/index.js",
+    "bableValidation":"npx babel-node ./extra/utils/validation.js",
+    "index":"npx babel-node ./extra/index.js",
+    "validation" :"npx babel-node ./extra/utils/validation.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankajchibhrani-successive/express-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pankajchibhrani-successive/express-server/issues"
+  },
+  "homepage": "https://github.com/pankajchibhrani-successive/express-server#readme",
+  "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.10.4"
+  }
+}
