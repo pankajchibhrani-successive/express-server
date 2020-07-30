@@ -1,28 +1,39 @@
 import * as express from "express"
-
+import * as methods from "./router"
 const bodyParser = require("body-parser")
 
-// let app = express()
+import * as routes from "./router"
+import {Controller} from "./controller/trainee/Controller"
+import {errorHandler} from "./libs/routes/errorHandler"
+import router from "./controller/trainee/routes"
+// import { resolveMx } from "dns"
+
+let controllerDao = new Controller()
+
 export class ServerDao
 {
-
+        public path ="/api"
         private app; PORT ; NODE_ENV
     constructor(config){
-
+        this.app=express()
         this.PORT = config.PORT,
         this.NODE_ENV = config.NODE_ENV
-        // this.run(config)  
-        // this.config= config
+
     }
 
     bootstrap(){
         this.initBodyParser()
-       return this.setupRoutes()
+       return this.setUpRoutes()
     }
 
-    setupRoutes(){
+    setUpRoutes(){
         try{
-            this.app.get('/health-check', (req, res) => res.send('I am OK!'))
+            // controllerDao.get('/api/health-check', function(req,res,next){
+                
+            // })
+            this.app.use(this.path, routes);
+            // this.app.use(errorHandler)
+
             console.log("sucesss")
         }
         catch(error){
@@ -30,7 +41,7 @@ export class ServerDao
             
         }
     }
-    
+
     run(){
         try{
             this.app = express()

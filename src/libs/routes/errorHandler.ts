@@ -5,7 +5,7 @@ let error ={
     timestamp: "2019-01-08T17:38:21.929Z"
     }
 
-this.app.use(function (err, req, res, next) {
+export let errorHandler= (function (err, req, res, next) {
    console.log(err)
 
     return res.send(error)
