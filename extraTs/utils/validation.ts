@@ -1,20 +1,20 @@
-//import * as constants from "../constants"
+// import * as constants from "../constants"
 // var users= [
 //     {
 //     traineeEmail:constants.traineeEmail,
 //     reviewerEmail: constants.reviewerEmail,
 //     }
 //     ]
-import * as validation from "./helpers"
+import * as validation from './helpers';
 // import * as validateEmail from "./helpers"
 
-  export let validate= validation
+  export let validate = validation;
 // console.log(validationEmail.validateEmail("ss"))
 // function validateUsers(users){
 
 //     for(let i=0;i<users.length;i++){
 
-         
+
 //         [a,b]= [users[i].traineeEmail,users[i].reviewerEmail]  // destructring
 
 //         if(validateEmail(a)){
@@ -22,7 +22,7 @@ import * as validation from "./helpers"
 //         }
 //         else{
 //             invalidUsers++
-//         } 
+//         }
 
 
 //         if(validateEmail(b)){
@@ -34,7 +34,7 @@ import * as validation from "./helpers"
 
 //     }
 // return {validUsers,invalidUsers}
-   
+
 // }
 
 // let c =validateUsers(users)

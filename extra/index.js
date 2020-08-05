@@ -27,7 +27,4 @@ import {CONSTANT} from "./constants"
 console.log(validateEmail.validateEmail(CONSTANT.users[0].traineeEmail))
 console.log(validateUsers.validateUsers(CONSTANT.users))
 // console.log(validateEmail(users[0].reviewerEmail))
-
-
 console.log(hasPermission("getUsers","trainer","write",CONSTANT.permission))
-

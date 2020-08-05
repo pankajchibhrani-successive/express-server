@@ -17,18 +17,18 @@
 
 // import * as hasPermission from "./utils/permission"
 
-import  {validate} from "./utils/validation"
+import  { validate } from './utils/validation';
 // import  {validateEmail,validateUsers} from "./utils/helpers"
-import {permission} from "./utils/permission"
+import { permission } from './utils/permission';
 
-import {CONSTANT} from "./constants"
+import { CONSTANT } from './constants';
 // console.log(hasPermission('getUsers',undefined, 'delete'))
 
-console.log(validate.validateEmail(CONSTANT.users[0].reviewerEmail))
-console.log(validate.validateUsers(CONSTANT.users))
+console.log(validate.validateEmail(CONSTANT.users[0].reviewerEmail));
+console.log(validate.validateUsers(CONSTANT.users));
 // console.log(validation.validation.validateUsers(CONSTANT.users))
 // console.log(validateEmail(CONSTANT.users[0].reviewerEmail))
-
-
-console.log(permission.hasPermission("getUsers","trainer","write",CONSTANT.permission))
+     
+   
+console.log(permission.hasPermission('getUsers', 'trainer', 'write', CONSTANT.permission));
 

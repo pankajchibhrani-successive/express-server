@@ -3,13 +3,19 @@ import {Router} from "express"
 import { errorHandler } from "./libs/routes/errorHandler"
 // const router = express.Router();
 const router= Router()
+
+import AdminRoute from "./controller/trainee/routes"
+
+// export let adminRoute=AdminRoute
+
 // router.route("/")
 // router.route('/').get();
-let ControllerDao = new Controller()
-router.route('/health-check').get(
-     ControllerDao.get(function(req,res,next){
-         return res.send("8789989")
-     })
-)
+// let ControllerDao = new Controller()
+//  router.get('/health-check',ControllerDao.get)
 // export let ControllerDao = controllerDao
-module.exports =router
+export{
+    AdminRoute
+}
+
+
+

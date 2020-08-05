@@ -1,6 +1,6 @@
-import * as hasPermission from "./helpers"
+import * as hasPermission from './helpers';
 
 
 
 
-export let permission  = hasPermission
+export let permission  = hasPermission;
