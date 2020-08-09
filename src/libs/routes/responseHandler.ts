@@ -9,7 +9,7 @@ class ResponseHandler {
 	constructor() { }
 
 	/** dispatches response from the server */
-	async sendSuccess(r: Response, b, d = {}) {
+	async sendSuccess(r: Response, b: IApp.Dispatcher, d: IApp.DataKeys = {}) {
 		b.data = d;
 		r.status(b.statusCode).json(b);
 	}

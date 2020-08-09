@@ -3,8 +3,13 @@
     "module": "commonjs",
     "target": "es6",
     "noImplicitAny": false,
+    "experimentalDecorators": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
+    "types": [
+        "reflect-metadata",
+        "swagger-express-ts"
+    ],
     "resolveJsonModule": true,
     "esModuleInterop": false,
     "allowJs": true /* Allow javascript files to be compiled. */,

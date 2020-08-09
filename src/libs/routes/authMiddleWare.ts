@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { Joi } from "celebrate";
-import Jwt from "jsonwebtoken";
-
+import * as Jwt from "jsonwebtoken";
+const cert = "cgfhfj";
 const basicAuth = function (request: Request, response: Response, next:NextFunction) {
 	console.log(request.headers)
 	const isValid: boolean = apiKeyFunction(request?.headers?.api_key);
@@ -13,6 +13,22 @@ console.log(isValid,"ppppppppppppppppp")
 	} else {
 		return response.status(403).send("You are not authorized to perform this action");
 	}
+};
+export const buildToken = function (params: IApp.TokenData) {
+	const userObject: any = {};
+
+	if (params.userId)
+		userObject.userId = params.userId;
+	if (params.email)
+		userObject.email = params.email;
+	if (params.name)
+		userObject.name = params.name;
+	// userObject.platform = params.platform;
+	if (params.deviceId)
+		userObject.deviceId = params.deviceId;
+	// userObject.userType = params.userType;
+
+	return userObject;
 };
 
 const authMiddleWare = function (module,permissionType) {
@@ -47,6 +63,20 @@ const basicAuthFunction = async function (accessToken = "") {
 	const [username, password] = credentials.split(":");
 	if (username !== "pankaj" || password !== "pankaj@123") { return false; }
 	return true;
+};
+ const generateToken = async (type: string, tokenData) => {
+	try {
+		
+		console.log(tokenData,"329999999999999999",cert,{ algorithm: "HS256", expiresIn: "5m" })
+		switch (type) {
+			case "USER_LOGIN":
+				return await Jwt.sign(tokenData, cert, { algorithm: "HS256", expiresIn: "5m" }); 
+			default:
+				return {};
+		}
+	} catch (error) {
+		throw error;
+	}
 };
 const adminAuth = async function (request: Request, response: Response, next: NextFunction) {
 	try {
@@ -95,11 +125,58 @@ const adminAuth = async function (request: Request, response: Response, next: Ne
 		throw error;
 	}
 };
-
+const userAuth = async function (request: Request, response: Response, next: NextFunction) {
+	try {
+//		const isValid: boolean = apiKeyFunction(request.headers.api_key);
+//		console.log(isValid,"9000000000",request.headers)
+		if (!request.headers.authorization) {
+			return response.status(403).send("You are not authorized to perform this action");
+		} else {
+			console.log("9823982390")
+			const authMethod = request.headers.authorization?.split(" ")[0];
+			const accessToken = request.headers.authorization?.split(" ")[1];
+			console.log(authMethod,accessToken)
+			if (authMethod !== "Bearer" || !accessToken) {
+				return response.status(403).send("You are not authorized to perform this action");
+			} else {
+				const jwtPayload: any = await decodeToken(accessToken, response);
+				// const isExpire = isTimeExpired(jwtPayload.payload.exp * 1000);
+				// if (isExpire) {
+				// 	await loginHistoryDao.removeDeviceById({ "userId": jwtPayload.payload.userId, "deviceId": jwtPayload.payload.deviceId });
+				// }
+				let tokenData: any = await verifyToken(response, { accessToken });
+				console.log("tokendata......................",tokenData)
+				response.locals.tokenData= tokenData
+				next();
+				return {}
+				// let adminData: any = await adminDaoV1.findAdminById({ "userId": tokenData.userId });
+				// if (!adminData) {
+				// 	return Promise.reject(ERROR.COMMON(response.locals.lang).INVALID_TOKEN);
+				// }
+				// delete adminData._id; delete adminData.createdAt;
+				// if (adminData.status === STATUS.BLOCKED) {
+				// 	return Promise.reject(ERROR.COMMON(response.locals.lang).BLOCKED);
+				// }
+				//  else {
+				// 	const step1 = await loginHistoryDao.findDeviceById({ "userId": tokenData.userId, "deviceId": tokenData.deviceId });
+				// 	if (!step1) {
+				// 		return Promise.reject(ERROR.COMMON(response.locals.lang).SESSION_EXPIRED);
+				// 	}
+				// 	adminData = _.extend(adminData, { "deviceId": tokenData.deviceId, "platform": tokenData.platform, "userId": tokenData.userId });
+				// 	response.locals.tokenData = { ...tokenData, ...adminData };
+				// 	next();
+				// 	return {};
+				// }
+			}
+		}
+	} catch (error) {
+		throw error;
+	}
+};
 
 const verifyToken = async function (response: Response, params: any) {
 	try {
-		return await Jwt.verify(params.accessToken, "secret", { algorithms: ["HS256"] });
+		return await Jwt.verify(params.accessToken, cert, { algorithms: ["HS256"] });
 		
 	} catch (error) {
 		console.log("verifyToken=======================>", error);
@@ -133,5 +210,8 @@ export  let middleware= {
 
 	basicAuth,
 	adminAuth,
+	userAuth,
+	generateToken,
+	buildToken,
 	authorizationHeaderObj
 }

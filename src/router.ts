@@ -5,7 +5,7 @@ import { errorHandler } from "./libs/routes/errorHandler"
 const router= Router()
 
 import AdminRoute from "./controller/trainee/routes"
-
+import UserRoute from "./controller/user/routes"
 // export let adminRoute=AdminRoute
 
 // router.route("/")
@@ -14,7 +14,7 @@ import AdminRoute from "./controller/trainee/routes"
 //  router.get('/health-check',ControllerDao.get)
 // export let ControllerDao = controllerDao
 export{
-    AdminRoute
+    AdminRoute,UserRoute
 }
 
 

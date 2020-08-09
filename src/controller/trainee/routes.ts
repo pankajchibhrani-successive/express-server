@@ -7,25 +7,19 @@ import {headerObject} from "../../libs/routes/validator"
 // import responseHandler from "../../libs/routes/responseHandler"
 import ResponseHandler from "../../libs/routes/responseHandler";
 import {controller} from "../../controller/trainee/Controller"
-
 import {middleware} from "../../libs/routes/authMiddleWare" 
 
-// this.router.get("/api/healthCheck", {} );
-// router.get("/")
-// router.post()
-// router.put()
-// router.delete()
 
 class AdminRoute extends ResponseHandler{
 
-   public path;
+    public path;
     protected router = Router();
     
     get instance() {
-        console.log("3842",this.router)
+        // console.log("3842",this.router)
 		return this.router;
     }
-    
+
     constructor(path) {
        super();
        console.log("37288888888888",path)
@@ -64,7 +58,7 @@ class AdminRoute extends ResponseHandler{
                 const payload  = request.body;
                 payload.remoteAddress = request.headers["x-forwarded-for"] || request.connection.remoteAddress;
                 const result = await controller.login(response);
-                return this.sendSuccess(response, "SUCCESS", result);
+                // return this.sendSuccess(response, "SUCCESS", result);
             } catch (error) {
                 return this.sendError(response, error);
             }
@@ -82,7 +76,7 @@ class AdminRoute extends ResponseHandler{
 				try {
 					const tokenData= response.locals.tokenData;
 				//	const result = await adminController.details(response, tokenData);
-					return this.sendSuccess(response, "SUCCESS", tokenData);
+				//	return this.sendSuccess(response, "SUCCESS", tokenData);
 				} catch (error) {
 					return this.sendError(response, error);
 				}

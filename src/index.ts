@@ -14,7 +14,7 @@ let serverDao = new ServerDao(config)
 
 let run =serverDao.run()
 
-let routes =serverDao.setUpRoutes()
+let routes =serverDao.bootstrap()
 
 
 
