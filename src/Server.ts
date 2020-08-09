@@ -124,8 +124,8 @@ export class ServerDao
                 }
             });
 
-            this.app.set("views", path.join(__dirname, "views"));
-		this.app.use(express.static(path.join(__dirname, "../../public/images")));
+        //     this.app.set("views", path.join(__dirname, "views"));
+		// this.app.use(express.static(path.join(__dirname, "../../public/images")));
 		this.app.set("view engine", "ejs");
             console.log("sucesss")
         }

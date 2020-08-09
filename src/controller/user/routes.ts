@@ -141,7 +141,7 @@ celebrate({
 					limit: Joi.number().required().description("limit"),
 					searchKey: Joi.string().optional().description("Search by email and name"),
 					sortBy: Joi.string().trim().lowercase().valid("email","name").optional().description("email and name"),
-					sortOrder: Joi.number().optional().valid([1, -1]).description("1 for asc, -1 for desc"),
+					sortOrder: Joi.number().optional().valid(1, -1).description("1 for asc, -1 for desc"),
             
         }
     
