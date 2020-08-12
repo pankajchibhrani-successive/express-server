@@ -1,6 +1,13 @@
+let error ={
+  error: "Not Found",
+  message: "error",
+  status: 500,
+  timestamp: "2019-01-08T17:38:21.929Z"
+  }
 
+export let notFound= (function (err, req, res, next) {
+ console.log(err)
 
-this.app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.status(400).send('Not Found!')
-  })
+  return res.send(error)
+})
+

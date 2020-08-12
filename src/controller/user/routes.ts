@@ -107,7 +107,6 @@ class UserRoute extends ResponseHandler{
                 email: Joi.string()
                     .trim()
                     .lowercase()
-                    .email()
                     .regex(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$/)
                     .required(),
                 password: Joi.string()

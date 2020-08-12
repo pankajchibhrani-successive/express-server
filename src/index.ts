@@ -8,13 +8,28 @@ let config:EnvironmentVariables = Object.freeze({
     PORT : process.env.PORT,
     NODE_ENV : process.env.NODE_ENV
 })
-
-console.log(process.env.PORT)
 let serverDao = new ServerDao(config)
 
-let run =serverDao.run()
+class Index{
 
-let routes =serverDao.bootstrap()
+    constructor(){
+    }
+
+    run(){
+        serverDao.run()
+        return this
+    }
+
+    bootstrap(){
+        serverDao.bootstrap()
+        return this
+    }
+
+}
+console.log(process.env.PORT)
 
 
+let index = new Index()
+
+index.run().bootstrap()
 

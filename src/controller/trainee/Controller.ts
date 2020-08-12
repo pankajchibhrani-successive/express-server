@@ -18,7 +18,7 @@ import { AuthResponseJson } from "../../controller/user/user.route.schema";
 
 @ApiPath({
 	name: "User",
-	path: "/v1/user",
+	path: "/user",
 	// security: { apiKeyHeader: [] }
 })
 export class Controller{
@@ -70,49 +70,7 @@ export class Controller{
     }
   }
 
-  async Pagination(payload,tokenData){   
-    try{
-     
-      const { pageNo, limit, searchKey, sortBy, sortOrder } = payload;
-      const aggPipe = [];
-      
-      const match: any = {};
-      
-            if (searchKey) {
-              match["$or"] = [
-                { "email": { "$regex": searchKey, "$options": "-i" } },
-                { "name": { "$regex": searchKey, "$options": "-i" } },
-              ];
-            }
-            aggPipe.push({ "$match": match });
-            const project = {
-              _id: 1, email:1,name:1
-            };
-
-            aggPipe.push({ "$project": project });
-
-			let sort = {};
-			if (sortBy && sortOrder) {
-				if (sortBy === "email") {
-					sort = { "email": sortOrder };
-        }else if (sortBy === "name") {
-					sort = { "name": sortOrder };
-				}
-          else {
-					sort = { "createdAt": sortOrder };
-				}
-			} else {
-				sort = { "createdAt": sortOrder };
-			}
-			aggPipe.push({ "$sort": sort });
-
-      let result= await dao.paginate("users", aggPipe, limit, pageNo);
-      return result
-    }
-    catch(error){
-      throw error
-    }
-  }
+  
 
   @ApiOperationPost({
 		description: "User Check for Password",
@@ -127,7 +85,7 @@ export class Controller{
 		},
 
 		security: {
-			 apiKeyHeader: [],
+			//  apiKeyHeader: [],
 			  //  basicAuth: [],
 			  //  platform:[],
 			  //  timezone:[]
@@ -138,7 +96,7 @@ export class Controller{
 
   async checkforPassword(payload){   
     try{
-      // console.log(tokenData)
+      console.log(payload)
       
       let step1 = await dao.findOne("users",{"email": payload.email},{},{})
 
@@ -186,6 +144,48 @@ export class Controller{
     //     return "delete"
     // }
 // }
+async Pagination(payload,tokenData){   
+  try{
+   
+    const { pageNo, limit, searchKey, sortBy, sortOrder } = payload;
+    const aggPipe = [];
+    
+    const match: any = {};
+    
+          if (searchKey) {
+            match["$or"] = [
+              { "email": { "$regex": searchKey, "$options": "-i" } },
+              { "name": { "$regex": searchKey, "$options": "-i" } },
+            ];
+          }
+          aggPipe.push({ "$match": match });
+          const project = {
+            _id: 1, email:1,name:1
+          };
 
+          aggPipe.push({ "$project": project });
+
+    let sort = {};
+    if (sortBy && sortOrder) {
+      if (sortBy === "email") {
+        sort = { "email": sortOrder };
+      }else if (sortBy === "name") {
+        sort = { "name": sortOrder };
+      }
+        else {
+        sort = { "createdAt": sortOrder };
+      }
+    } else {
+      sort = { "createdAt": sortOrder };
+    }
+    aggPipe.push({ "$sort": sort });
+
+    let result= await dao.paginate("users", aggPipe, limit, pageNo);
+    return result
+  }
+  catch(error){
+    throw error
+  }
+}
 }
 export const controller = new Controller();

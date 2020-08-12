@@ -24,9 +24,7 @@ export class ServerDao
 {
         public path ="/api"
         private app; PORT ; NODE_ENV
-   
         constructor(config){
-            this.app=express()
             this.PORT = config.PORT,
             this.NODE_ENV = config.NODE_ENV
         }
@@ -146,11 +144,10 @@ export class ServerDao
         catch(error){
         throw error       
         }
-      
-       
     }
     initBodyParser(){
-        this.app.use(bodyParser.urlencoded({ extended: false }))
+        this.app.use(bodyParser.json({ limit: '50mb' }));
+		this.app.use(bodyParser.urlencoded({ extended: false, limit: '50mb' }));
     }
    // 
 }
